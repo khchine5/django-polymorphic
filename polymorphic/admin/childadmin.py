@@ -4,7 +4,7 @@ The child admin displays the change/delete view of the subclass model.
 import inspect
 
 from django.contrib import admin
-from django.core.urlresolvers import resolve
+from django.urls import resolve
 from django.utils import six
 from django.utils.translation import ugettext_lazy as _
 
@@ -169,7 +169,7 @@ class PolymorphicChildModelAdmin(admin.ModelAdmin):
 
     def get_fieldsets(self, request, obj=None):
         # If subclass declares fieldsets, this is respected
-        if (hasattr(self, 'declared_fieldset') and self.declared_fieldsets) \
+        if (hasattr(self, 'declared_fieldsets') and self.declared_fieldsets) \
            or not self.base_fieldsets:
             return super(PolymorphicChildModelAdmin, self).get_fieldsets(request, obj)
 

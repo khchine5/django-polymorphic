@@ -4,11 +4,24 @@ Changelog
 Changes in git
 --------------
 
+* Added ``PolymorphicTypeUndefined`` exception for incomplete imported models.
+  When a data migration or import creates an polymorphic model,
+  the ``polymorphic_ctype_id`` field should be filled in manually too.
+  The ``polymorphic.utils.reset_polymorphic_ctype`` function can be used for that.
+* Added ``PolymorphicTypeInvalid`` exception when database was incorrectly imported.
+* Fixed detection and handling of ``declared_fieldsets`` in the admin.
+* Fixed manager errors for swappable models.
+* Improved ``polymorphic.utils.reset_polymorphic_ctype()`` to accept models in random ordering.
+
+
+Version 1.3 (2017-08-01)
+------------------------
+
+* **BACKWARDS INCOMPATIBILITY:** Dropped Django 1.4, 1.5, 1.6, 1.7, 1.9 and Python 2.6 support.
+  Only official Django releases (1.8, 1.10, 1.11) are supported now.
 * Allow expressions to pass unchanged in ``.order_by()``
 * Fixed Django 1.11 accessor checks (to support subclasses of ``ForwardManyToOneDescriptor``, like ``ForwardOneToOneDescriptor``)
 * Fixed polib syntax error messages in translations.
-* Dropped Django 1.4, 1.5, 1.6, 1.7, 1.9 and Python 2.6 support.
-  Only official Django releases (1.8, 1.10, 1.11) are supported now.
 
 
 Version 1.2 (2017-05-01)

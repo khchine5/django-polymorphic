@@ -400,9 +400,17 @@ class DateModel(PolymorphicModel):
     date = models.DateTimeField()
 
 
-# Import tests
-from .test_admin import *
-from .test_orm import *
-from .test_multidb import *
-from .test_regression import *
+# Define abstract and swappable (being swapped for SwappedModel) models
+# To test manager validation (should be skipped for such models)
+class AbstractModel(PolymorphicModel):
+    class Meta:
+        abstract = True
 
+
+class SwappableModel(AbstractModel):
+    class Meta:
+        swappable = 'POLYMORPHIC_TEST_SWAPPABLE'
+
+
+class SwappedModel(AbstractModel):
+    pass
