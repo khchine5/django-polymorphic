@@ -8,6 +8,7 @@ import copy
 from collections import defaultdict
 
 from django.contrib.contenttypes.models import ContentType
+from django.db.models import FieldDoesNotExist
 from django.db.models.query import ModelIterable, Q, QuerySet
 from django.utils import six
 
@@ -392,6 +393,13 @@ class PolymorphicQuerySet(QuerySet):
                         # now a superclass of real_concrete_class. Thus it's
                         # sufficient to just use the field name.
                         translated_field_name = field.rpartition('___')[-1]
+
+                        # Check if the field does exist.
+                        # Ignore deferred fields that don't exist in this subclass type.
+                        try:
+                            real_concrete_class._meta.get_field(translated_field_name)
+                        except FieldDoesNotExist:
+                            continue
                     else:
                         raise
 
